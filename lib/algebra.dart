@@ -65,3 +65,85 @@ class Point {
     }
   }
 }
+
+extension Pow on num {
+  num pow(num other) {
+    double number = toDouble();
+    int root = other.toInt();
+
+    double eps = 0.00001;
+    double x = number;
+    double pw;
+    double xprev = 0;
+
+    try {
+      while ((xprev - x).abs() > eps) {
+        xprev = x; pw = 1;
+        for (int i = 0; i < root - 1; i++) { pw /= xprev; }
+        x = xprev * (root - 1) / root + number * pw / root;
+      }
+    } on Exception catch(e) {
+      print('Error: ${e.toString()}');
+    }
+    return x;
+  }
+}
+
+class RiemannIntegral {
+  num integral(double Function(double) function, num x1, num x2, num n) {
+    double sum = 0;
+    try {
+      double width = (x2 - x1) / n;
+      for (int i = 1; i <= n; i++) {
+        double x = x1 + width * i;
+        double y = function(x).abs();
+        double area = y * width;
+        sum += area;
+      }
+    } on Exception catch(e) {
+      print('Error: ${e.toString()}');
+    }
+    return sum;
+  }
+}
+
+class User {
+  String email = "";
+  User(this.email);
+}
+
+mixin SystemUser {
+  String getMailSystem(String email) {
+    return email.contains("@") ? email.substring(email.indexOf("@") + 1, email.length) : "";
+  }
+}
+
+class AdminUser extends User with SystemUser {
+  AdminUser(super.email);
+  String getMail() => getMailSystem(email);
+}
+
+class GeneralUser extends User with SystemUser {
+  GeneralUser(super.email);
+}
+
+class UserManager<T extends User> {
+  final _userList = [];
+
+  void addUser(User user) {
+    _userList.add(user);
+  }
+
+  void removeUser(User user) {
+    _userList.remove(user);
+  }
+
+  String showUsers() {
+    var result = "";
+    for (User user in _userList) {
+      result += "${((user is AdminUser) ? user.getMail() : user.email)}\n";
+    }
+    return result;
+  }
+
+}

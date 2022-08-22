@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:my_flutter/algebra.dart';
 
@@ -72,7 +74,18 @@ class _MyHomePageState extends State<MyHomePage> {
       //_counter = stringCalculator.stringToDigit("one, two, zero, zero", ", ").join(", ");
 
       //_counter = Point(4, 8, 1).distanceTo(Point(5, 2, 3)).toString();
-      _counter = Point(4, 8, 1).areaOfATriangle(Point(5, -2, 3), Point(8, 23, 2)).toString();
+      //_counter = Point(4, 8, 1).areaOfATriangle(Point(5, -2, 3), Point(8, 23, 2)).toString();
+      //_counter = 3.pow(7).toString();
+      //_counter = RiemannIntegral().integral((p0) => p0 * p0, -7, 12.0, 1000000).toString();
+      //_counter = AdminUser().getMail();
+      var userManager = UserManager();
+      userManager.addUser(AdminUser("vasiliy@bu.ru"));
+      userManager.addUser(AdminUser("karl@slom.ru"));
+      userManager.addUser(GeneralUser("artas@fan.com"));
+      userManager.addUser(AdminUser("momo_skolk@fill.ru"));
+      userManager.addUser(GeneralUser("parter@gorg.bk"));
+      userManager.addUser(AdminUser("valander@rost.com"));
+      _counter = userManager.showUsers();
     });
   }
 
