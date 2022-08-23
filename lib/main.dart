@@ -1,6 +1,14 @@
+// Dart imports:
 import 'dart:math';
 
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
+import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+
+// Project imports:
 import 'package:my_flutter/algebra.dart';
 
 void main() {
@@ -124,12 +132,35 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             const Text(
-              'You have pushed the button this many times:',
+              'IMAGES'//'You have pushed the button this many times:',
             ),
             Text(
               _counter,
               style: Theme.of(context).textTheme.headline4,
             ),
+            //Image.asset('assets/images/mordor.jpg'),
+            SvgPicture.asset(
+                'assets/images/123.svg',
+            ),
+            //SvgPicture.network('https://infogra.ru/wp-content/themes/infogra.loc/assets/img/logo.svg'),
+            CarouselSlider(
+              options: CarouselOptions(height: 100.0),
+              items: [1,2,3,4,5].map((i) {
+                return Builder(
+                  builder: (BuildContext context) {
+                    return Container(
+                        width: MediaQuery.of(context).size.width,
+                        margin: const EdgeInsets.symmetric(horizontal: 5.0, vertical: 5.0),
+                        padding: const EdgeInsets.symmetric(horizontal: 30.0),
+                        decoration: const BoxDecoration(
+                            color: Colors.lightGreenAccent
+                        ),
+                        child: SvgPicture.network('https://infogra.ru/wp-content/themes/infogra.loc/assets/img/logo.svg')//Text('text $i', style: TextStyle(fontSize: 16.0),)
+                    );
+                  },
+                );
+              }).toList(),
+            )
           ],
         ),
       ),
